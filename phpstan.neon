@@ -1,0 +1,24 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 6
+    paths:
+        - app
+        - config
+        - database/factories
+        - database/seeders
+        - routes
+        - tests
+
+    excludePaths:
+        - storage/*
+        - vendor/*
+        - node_modules/*
+        - bootstrap/cache/*
+        - database/migrations/*
+
+    inferPrivatePropertyTypeFromConstructor: true
+    
+    # Ignore these errors
+    ignoreErrors: []

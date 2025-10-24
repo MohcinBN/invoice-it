@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Pagination from '@/Components/Pagination.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
@@ -42,24 +43,24 @@ defineProps({
                 </Link>
             </button>
         </div>
-    <div v-if="clients.data.length" class="py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <table>
-            <thead>
+    <div v-if="clients.data.length" class="py-12 mx-auto max-w-7xl sm:px-6 lg:px-8 relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Actions</th>
+                    <th scope="col" class="px-6 py-3">Name</th>
+                    <th scope="col" class="px-6 py-3">Email</th>
+                    <th scope="col" class="px-6 py-3">Phone</th>
+                    <th scope="col" class="px-6 py-3">Address</th>
+                    <th scope="col" class="px-6 py-3">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="client in clients.data" :key="client.id">
-                    <td>{{ client.name }}</td>
-                    <td>{{ client.email }}</td>
-                    <td>{{ client.phone }}</td>
-                    <td>{{ client.address }}</td>
-                    <td class="flex gap-2">
+                <tr v-for="client in clients.data" :key="client.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4">{{ client.name }}</td>
+                    <td class="px-6 py-4">{{ client.email }}</td>
+                    <td class="px-6 py-4">{{ client.phone }}</td>
+                    <td class="px-6 py-4">{{ client.address }}</td>
+                    <td class="flex gap-2 px-6 py-4">
                         <Link :href="route('clients.edit', client.id)">
                             Edit
                         </Link>
@@ -76,6 +77,7 @@ defineProps({
                 </tr>
             </tbody>
         </table>
+        <Pagination :links="clients.links" />
     </div>
     <div v-else>
         No clients found.

@@ -59,10 +59,19 @@ defineProps({
                     <td>{{ client.email }}</td>
                     <td>{{ client.phone }}</td>
                     <td>{{ client.address }}</td>
-                    <td>
-                        <!--<Link :href="route('clients.edit', client.id)">
+                    <td class="flex gap-2">
+                        <Link :href="route('clients.edit', client.id)">
                             Edit
-                        </Link>-->
+                        </Link>
+                        <Link
+                            :href="route('clients.remove', client.id)"
+                            method="delete"
+                            as="button"
+                            class="text-red-500 hover:text-red-600"
+                            onclick="return confirm('Are you sure you want to remove this client?')"
+                        >
+                            Remove
+                        </Link>
                     </td>
                 </tr>
             </tbody>

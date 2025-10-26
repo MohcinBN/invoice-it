@@ -16,7 +16,8 @@ return new class () extends Migration {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('invoice_number')->unique();
             $table->date('invoice_date')->default(now());
-            $table->date('date_covered')->default(now());
+            $table->date('date_covered_start')->default(now());
+            $table->date('date_covered_end')->default(now()->addMonth());
             $table->enum('status', ['pending', 'sent', 'paid',])->default('pending');
             $table->decimal('total', 10, 2);
             $table->string('template')->default('template_1');

@@ -7,6 +7,12 @@ use App\Http\Controllers\Clients\EditClientController;
 use App\Http\Controllers\Clients\StoreClientController;
 use App\Http\Controllers\Clients\UpdateClientController;
 use App\Http\Controllers\Clients\RemoveClientController;
+use App\Http\Controllers\Invoices\IndexInvoiceController;
+use App\Http\Controllers\Invoices\CreateInvoiceController;
+use App\Http\Controllers\Invoices\StoreInvoiceController;
+use App\Http\Controllers\Invoices\EditInvoiceController;
+use App\Http\Controllers\Invoices\UpdateInvoiceController;
+use App\Http\Controllers\Invoices\RemoveInvoiceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,6 +44,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/clients/{client}/edit', EditClientController::class)->name('clients.edit')->middleware('role:' . Role::SUPER_ADMIN);
     Route::put('/clients/{client}', UpdateClientController::class)->name('clients.update')->middleware('role:' . Role::SUPER_ADMIN);
     Route::delete('/clients/{client}', RemoveClientController::class)->name('clients.remove')->middleware('role:' . Role::SUPER_ADMIN);
+
+    // Invoices
+    Route::get('/invoices', IndexInvoiceController::class)->name('invoices.index')->middleware('role:' . Role::SUPER_ADMIN);
+    Route::get('/invoices/create', CreateInvoiceController::class)->name('invoices.create')->middleware('role:' . Role::SUPER_ADMIN);
+    Route::post('/invoices', StoreInvoiceController::class)->name('invoices.store')->middleware('role:' . Role::SUPER_ADMIN);
+    Route::get('/invoices/{invoice}/edit', EditInvoiceController::class)->name('invoices.edit')->middleware('role:' . Role::SUPER_ADMIN);
+    Route::put('/invoices/{invoice}', UpdateInvoiceController::class)->name('invoices.update')->middleware('role:' . Role::SUPER_ADMIN);
+    Route::delete('/invoices/{invoice}', RemoveInvoiceController::class)->name('invoices.remove')->middleware('role:' . Role::SUPER_ADMIN);
 });
 
 require __DIR__.'/auth.php';

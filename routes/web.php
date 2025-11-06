@@ -13,6 +13,9 @@ use App\Http\Controllers\Invoices\StoreInvoiceController;
 use App\Http\Controllers\Invoices\EditInvoiceController;
 use App\Http\Controllers\Invoices\UpdateInvoiceController;
 use App\Http\Controllers\Invoices\RemoveInvoiceController;
+use App\Http\Controllers\Invoices\EditInvoiceItemsController;
+use App\Http\Controllers\Invoices\UpdateInvoiceItemsController;
+use App\Http\Controllers\Invoices\ExportInvoicePdfController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,6 +55,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/invoices/{invoice}/edit', EditInvoiceController::class)->name('invoices.edit')->middleware('role:' . Role::SUPER_ADMIN);
     Route::put('/invoices/{invoice}', UpdateInvoiceController::class)->name('invoices.update')->middleware('role:' . Role::SUPER_ADMIN);
     Route::delete('/invoices/{invoice}', RemoveInvoiceController::class)->name('invoices.remove')->middleware('role:' . Role::SUPER_ADMIN);
+    
+    // Invoice Items
+    Route::get('/invoices/{invoice}/items/edit', EditInvoiceItemsController::class)->name('invoices.items.edit')->middleware('role:' . Role::SUPER_ADMIN);
+    Route::put('/invoices/{invoice}/items', UpdateInvoiceItemsController::class)->name('invoices.items.update')->middleware('role:' . Role::SUPER_ADMIN);
+    
+    // Invoice PDF Export
+    Route::get('/invoices/{invoice}/export-pdf', ExportInvoicePdfController::class)->name('invoices.export.pdf')->middleware('role:' . Role::SUPER_ADMIN);
 });
 
 require __DIR__.'/auth.php';

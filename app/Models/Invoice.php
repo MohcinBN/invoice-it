@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $user_id
  * @property string $invoice_number
  * @property \DateTime $invoice_date
- * @property \DateTime $date_covered
+ * @property \DateTime $date_covered_start
+ * @property \DateTime $date_covered_end
  * @property string $status
  * @property float $total
  * @property string $template
@@ -41,7 +42,8 @@ class Invoice extends Model
         'user_id',
         'invoice_number',
         'invoice_date',
-        'date_covered',
+        'date_covered_start',
+        'date_covered_end',
         'status',
         'total',
         'template',
@@ -54,7 +56,8 @@ class Invoice extends Model
      */
     protected $casts = [
         'invoice_date' => 'date',
-        'date_covered' => 'date',
+        'date_covered_start' => 'date',
+        'date_covered_end' => 'date',
         'total' => 'decimal:2',
     ];
 
@@ -86,5 +89,21 @@ class Invoice extends Model
     public function items(): HasMany
     {
         return $this->hasMany(InvoiceItem::class);
+    }
+
+    /**
+     * Get the formatted date covered period.
+     */
+    public function getDateCoveredPeriodAttribute(): string
+    {
+        return $this->date_covered_start->format('M d, Y') . ' - ' . $this->date_covered_end->format('M d, Y');
+    }
+
+    /**
+     * Get the subtotal (sum of all items).
+     */
+    public function getSubtotalAttribute(): float
+    {
+        return $this->items->sum('total_amount');
     }
 }

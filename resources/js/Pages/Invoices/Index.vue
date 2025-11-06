@@ -62,15 +62,27 @@ defineProps({
                         <td class="px-6 py-4">{{ invoice.date_covered_start }} - {{ invoice.date_covered_end }}</td>
                         <td class="px-6 py-4">{{ invoice.status }}</td>
                         <td class="px-6 py-4">{{ invoice.total }}$</td>
-                        <td class="flex gap-2 px-6 py-4">
-                            <Link :href="route('invoices.edit', invoice.id)">
-                            Edit
-                            </Link>
-                            <Link :href="route('invoices.remove', invoice.id)" method="delete" as="button"
-                                class="text-red-500 hover:text-red-600"
-                                onclick="return confirm('Are you sure you want to remove this invoice?')">
-                            Remove
-                            </Link>
+                        <td class="px-6 py-4">
+                            <div class="flex gap-2 flex-wrap">
+                                <Link :href="route('invoices.edit', invoice.id)"
+                                    class="text-blue-600 hover:text-blue-800 font-medium">
+                                    Edit
+                                </Link>
+                                <Link :href="route('invoices.items.edit', invoice.id)"
+                                    class="text-green-600 hover:text-green-800 font-medium">
+                                    Edit Items
+                                </Link>
+                                <Link :href="route('invoices.export.pdf', invoice.id)"
+                                    class="text-purple-600 hover:text-purple-800 font-medium"
+                                    target="_blank">
+                                    Export PDF
+                                </Link>
+                                <Link :href="route('invoices.remove', invoice.id)" method="delete" as="button"
+                                    class="text-red-500 hover:text-red-600 font-medium"
+                                    onclick="return confirm('Are you sure you want to remove this invoice?')">
+                                    Remove
+                                </Link>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
